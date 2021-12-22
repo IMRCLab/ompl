@@ -177,11 +177,11 @@ endif()
 find_program(R_EXEC R)
 
 add_subdirectory(src)
-add_subdirectory(py-bindings)
-add_subdirectory(tests)
-add_subdirectory(demos)
-add_subdirectory(scripts)
-add_subdirectory(doc)
+# add_subdirectory(py-bindings)
+# add_subdirectory(tests)
+# add_subdirectory(demos)
+# add_subdirectory(scripts)
+# add_subdirectory(doc)
 
 if(NOT MSVC)
     target_link_flags(ompl)
@@ -225,7 +225,7 @@ configure_file(
   "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules/cmake_uninstall.cmake.in"
   "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
   IMMEDIATE @ONLY)
-add_custom_target(uninstall
+add_custom_target(uninstall-ompl
   COMMAND ${CMAKE_COMMAND} -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
 
 include(CPackSettings)
