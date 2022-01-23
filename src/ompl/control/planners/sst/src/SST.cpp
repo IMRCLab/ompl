@@ -266,7 +266,8 @@ ompl::base::PlannerStatus ompl::control::SST::solve(const base::PlannerTerminati
         unsigned int cd = rng_.uniformInt(siC_->getMinControlDuration(), siC_->getMaxControlDuration());
         unsigned int propCd = siC_->propagateWhileValid(nmotion->state_, rctrl, cd, rstate);
 
-        if (propCd == cd)
+        // if (propCd == cd)
+        if (propCd >= siC_->getMinControlDuration())
         {
             base::Cost incCostMotion = opt_->motionCost(nmotion->state_, rstate);
             base::Cost incCostControl = opt_->controlCost(rctrl, cd);
@@ -282,7 +283,7 @@ ompl::base::PlannerStatus ompl::control::SST::solve(const base::PlannerTerminati
                 motion->accCost_ = cost;
                 si_->copyState(motion->state_, rmotion->state_);
                 siC_->copyControl(motion->control_, rctrl);
-                motion->steps_ = cd;
+                motion->steps_ = propCd;
                 motion->parent_ = nmotion;
                 nmotion->numChildren_++;
                 closestWitness->linkRep(motion);
